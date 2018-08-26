@@ -15,15 +15,17 @@ def port_scan(ip, port):
     s = socket(AF_INET, SOCK_STREAM)
     s.settimeout(.5)
     try:
-        s = s.connect((str(ip), port))
-
         with open("logs.txt", "a") as log:
+            if port == 21:
+                log.write("Last IP Scanned: {}\n".format(ip))            
+            s = s.connect((str(ip), port))
             log.write("{}: Port open: {}\n".format(ip, port))
             log.close()
 
         print "{}: Port open: {}".format(ip, port)
     except Exception as e:
         print e
+        last_ip = str(ip)
         pass
 
 def main():
