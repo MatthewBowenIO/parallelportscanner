@@ -11,7 +11,7 @@ def parallel_port_scan(cc, ip, portStart, portEnd):
     return Parallel(n_jobs = cc)(delayed(port_scan)(ip, i) for i in range(portStart, portEnd))
 
 def port_scan(ip, port):
-    print "{}: {}".format(str(ip), port)
+    print("{}: {}".format(str(ip), port))
     s = socket(AF_INET, SOCK_STREAM)
     s.settimeout(.5)
     try:
@@ -22,9 +22,9 @@ def port_scan(ip, port):
             log.write("{}: Port open: {}\n".format(ip, port))
             log.close()
 
-        print "{}: Port open: {}".format(ip, port)
+        print("{}: Port open: {}".format(ip, port))
     except Exception as e:
-        print e
+        print(e)
         last_ip = str(ip)
         pass
 
@@ -39,7 +39,7 @@ def main():
     ipStart, ipEnd = args.ipRange.split("-")
     portStart, portEnd = args.portRange.split("-")
 
-    print ipStart, ipEnd, portStart, portEnd
+    print(ipStart, ipEnd, portStart, portEnd)
 
     ipRange = IPRange(ipStart, ipEnd)
 
@@ -49,7 +49,7 @@ def main():
         parallel_port_scan(cc, ip, int(portStart), int(portEnd))
         #for port in range(int(portStart), int(portEnd)):
             #port_scan(ip, port)
-    print str(datetime.timedelta(seconds=int(time.time() - start)))
+    print(str(datetime.timedelta(seconds=int(time.time() - start))))
 
 if __name__ == "__main__":
     main()
